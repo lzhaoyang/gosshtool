@@ -22,7 +22,7 @@ type SSHClientConfig struct {
 	Host              string
 	User              string
 	Password          string
-	Privatekey        string
+	PrivateKey        string
 	DialTimeoutSecond int
 	MaxDataThroughput uint64
 }

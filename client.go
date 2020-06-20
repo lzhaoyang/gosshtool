@@ -62,7 +62,7 @@ func (c *SSHClient) Connect() (conn *ssh.Client, err error) {
 		port = hstr[1]
 	}
 
-	config := makeConfig(c.User, c.Password, c.Privatekey)
+	config := makeConfig(c.User, c.Password, c.PrivateKey)
 
 	if c.DialTimeoutSecond > 0 {
 		connNet, err := net.DialTimeout("tcp", host+":"+port, time.Duration(c.DialTimeoutSecond)*time.Second)

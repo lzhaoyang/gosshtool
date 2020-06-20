@@ -152,7 +152,7 @@ func NewSSHClient(config *SSHClientConfig) (client *SSHClient) {
 	client.Host = config.Host
 	client.User = config.User
 	client.Password = config.Password
-	client.Privatekey = config.Privatekey
+	client.PrivateKey = config.PrivateKey
 	client.DialTimeoutSecond = config.DialTimeoutSecond
 	sshClientsMutex.Lock()
 	sshClients[config.Host] = client

@@ -17,7 +17,7 @@ func (this *LocalForwardServer) createTunnel() {
 		User:       this.SshUserName,
 		Password:   this.SshUserPassword,
 		Host:       this.SshServerAddress,
-		Privatekey: this.SshPrivateKey,
+		PrivateKey: this.SshPrivateKey,
 	}
 	sshclient := NewSSHClient(config)
 	conn, err := sshclient.Connect()
