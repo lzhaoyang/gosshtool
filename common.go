@@ -29,8 +29,11 @@ type SSHClientConfig struct {
 
 func makeConfig(user string, password string, privateKey string) (config *ssh.ClientConfig) {
 
-	if password == "" && user == "" {
+	if password == "" && privateKey == "" {
 		log.Fatal("No password or private key available")
+	}
+	if user == "" {
+		log.Fatal("user is required parameter, not allow empty!")
 	}
 	config = &ssh.ClientConfig{
 		User: user,
