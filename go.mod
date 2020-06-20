@@ -1,4 +1,4 @@
-module gosshtool
+module lzhaoyang/gosshtool
 
 go 1.14
 
