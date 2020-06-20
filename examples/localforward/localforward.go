@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/lzhaoyang/gosshtool"
 	"github.com/scottkiss/gomagic/dbmagic"
 	//"io/ioutil"
