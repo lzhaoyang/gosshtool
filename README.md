@@ -1,6 +1,8 @@
 # gosshtool
 [![Build Status](https://travis-ci.org/scottkiss/gosshtool.svg)](https://travis-ci.org/scottkiss/gosshtool)
 
+hey guys, this repo is a fork of `github.com/scottkiss/gosshtool` but original repo has some bug. So I fork it and fix some issues.
+Beside this I have add go mod for this repo. So I can be easy for use.
 ssh tool library for Go,gosshtool provide some useful functions for ssh client in golang.implemented using golang.org/x/crypto/ssh.
 
 
@@ -13,7 +15,7 @@ ssh tool library for Go,gosshtool provide some useful functions for ssh client i
 
 ## Installation
 ```bash
-go get -u github.com/scottkiss/gosshtool
+go get -u github.com/lzhaoyang/gosshtool
 ```
 
 ## Examples
@@ -21,52 +23,70 @@ go get -u github.com/scottkiss/gosshtool
 ### command execution on single server
 
 ```golang
-    import "github.com/scottkiss/gosshtool"
-		sshconfig := &gosshtool.SSHClientConfig{
-			User:     "user",
-			Password: "pwd",
-			Host:     "11.11.22.22",
-		}
-		sshclient := gosshtool.NewSSHClient(sshconfig)
-		t.Log(sshclient.Host)
-		stdout, stderr,session, err := sshclient.Cmd("pwd",nil,nil,0)
-		if err != nil {
-			t.Error(err)
-		}
-		t.Log(stdout)
-		t.Log(stderr)
+    package main
+    import (
+        "github.com/lzhaoyang/gosshtool"
+        "log"
+    )
+    func main(){
+        sshconfig := &gosshtool.SSHClientConfig{
+                User:     "user",
+                Password: "pwd",
+                Host:     "11.11.22.22",
+            }
+        sshclient := gosshtool.NewSSHClient(sshconfig)
+        log.Println(sshclient.Host)
+        stdout, stderr,session, err := sshclient.Cmd("pwd",nil,nil,0)
+        if err != nil {
+            log.Fatal(err)
+        }
+        log.Println(session)
+        log.Println(stdout)
+        log.Println(stderr)
+    }
+    
 ```
 
 
 ### command execution on multiple servers
 
 ```golang
-  import "github.com/scottkiss/gosshtool"
+    package main
+    
+    import (
+        "github.com/lzhaoyang/gosshtool"
+        "log"
+    )
+    
+    func main(){
 
-	config := &gosshtool.SSHClientConfig{
-		User:     "sam",
-		Password: "123456",
-		Host:     "serverA", //ip:port
-	}
-	gosshtool.NewSSHClient(config)
+        config := &gosshtool.SSHClientConfig{
+        		User:     "sam",
+        		Password: "123456",
+        		Host:     "serverA", //ip:port
+        	}
+        gosshtool.NewSSHClient(config)
+    
+        config2 := &gosshtool.SSHClientConfig{
+            User:     "sirk",
+            Privatekey: "sshprivatekey",
+            Host:     "serverB",
+        }
+        gosshtool.NewSSHClient(config2)
+        stdout, _,_, err := gosshtool.ExecuteCmd("pwd", "serverA")
+        if err != nil {
+            log.Fatal(err)
+        }
+        log.Println(stdout)
+    
+        stdout, _,_, err = gosshtool.ExecuteCmd("pwd", "serverB")
+        if err != nil {
+            log.Fatal(err)
+        }
+        log.Println(stdout)
 
-	config2 := &gosshtool.SSHClientConfig{
-		User:     "sirk",
-		Privatekey: "sshprivatekey",
-		Host:     "serverB",
-	}
-	gosshtool.NewSSHClient(config2)
-	stdout, _,_, err := gosshtool.ExecuteCmd("pwd", "serverA")
-	if err != nil {
-		t.Error(err)
-	}
-	t.Log(stdout)
-
-	stdout, _,_, err = gosshtool.ExecuteCmd("pwd", "serverB")
-	if err != nil {
-		t.Error(err)
-	}
-	t.Log(stdout)
+    }
+	
   ```
 
 ### ssh tunnel port forwarding
@@ -77,7 +97,7 @@ package main
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/scottkiss/gomagic/dbmagic"
-	"github.com/scottkiss/gosshtool"
+	"github.com/lzhaoyang/gosshtool"
 	//"io/ioutil"
 	"log"
 )
@@ -121,9 +141,9 @@ func main() {
 
 ## More Examples
 * [sshcmd](https://github.com/scottkiss/sshcmd) simple ssh command line client.
-* [gooverssh](https://github.com/scottkiss/gooverssh) port forward server over ssh.
+* [gooverssh](https://github.com/lzhaoyang/gooverssh) port forward server over ssh.
 
 ## License
-View the [LICENSE](https://github.com/scottkiss/gosshtool/blob/master/LICENSE) file
+View the [LICENSE](https://github.com/lzhaoyang/gosshtool/blob/master/LICENSE) file
 
 

@@ -37,6 +37,8 @@ func makeConfig(user string, password string, privateKey string) (config *ssh.Cl
 		Auth: []ssh.AuthMethod{
 			ssh.Password(password),
 		},
+		//fix issue Failed to dial: ssh: must specify HostKeyCallback
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
 	if privateKey != "" {
 		signer, err := ssh.ParsePrivateKey([]byte(privateKey))
@@ -49,6 +51,7 @@ func makeConfig(user string, password string, privateKey string) (config *ssh.Cl
 			Auth: []ssh.AuthMethod{
 				clientkey,
 			},
+			HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 		}
 	}
 	return

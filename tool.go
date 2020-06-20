@@ -143,6 +143,8 @@ func NewSSHClient(config *SSHClientConfig) (client *SSHClient) {
 	sshClientsMutex.RLock()
 	client = sshClients[config.Host]
 	if client != nil {
+		//fix lock may not be release
+		sshClientsMutex.RUnlock()
 		return
 	}
 	sshClientsMutex.RUnlock()
